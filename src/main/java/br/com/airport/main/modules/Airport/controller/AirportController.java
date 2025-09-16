@@ -12,6 +12,7 @@ import br.com.airport.main.modules.Airport.service.AirportService;
 import jakarta.validation.Valid;
 
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -42,5 +43,11 @@ public class AirportController {
     @DeleteMapping("/{id}")
     public ResponseEntity<ApiResponseDto<AirportModel>> deleteAirportById(@PathVariable Integer id) {
         return airportService.deleteById(id);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<ApiResponseDto<AirportModel>> updateAirport(@PathVariable Integer id,
+            @Valid @RequestBody AirportModel airportModel) {
+        return airportService.updateAirport(airportModel, id);
     }
 }

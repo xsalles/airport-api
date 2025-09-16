@@ -21,7 +21,7 @@ public class AirportModel {
 
     @Length(min = 3, max = 3)
     @Pattern(regexp = "^[A-Z]{3}$", message = "IATA code must be exactly 3 uppercase letters")
-    private String IATA;
+    private String iata;
 
     @Pattern(regexp = "[\\p{L} ]+", message = "City must contain only letters and spaces")
     private String city;
