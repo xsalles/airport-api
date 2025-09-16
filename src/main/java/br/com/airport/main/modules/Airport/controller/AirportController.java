@@ -14,6 +14,7 @@ import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
@@ -36,5 +37,10 @@ public class AirportController {
     @GetMapping("/{id}")
     public ResponseEntity<ApiResponseDto<AirportModel>> getAirportById(@PathVariable Integer id) {
         return airportService.getAirportsById(id);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<ApiResponseDto<AirportModel>> deleteAirportById(@PathVariable Integer id) {
+        return airportService.deleteById(id);
     }
 }

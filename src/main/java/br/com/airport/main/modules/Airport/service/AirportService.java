@@ -31,6 +31,10 @@ public class AirportService {
     }
 
     public ResponseEntity<ApiResponseDto<List<AirportModel>>> getAllAirports() {
+        if (airportRepository.findAll().isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+
         return ResponseEntity.status(HttpStatus.OK)
                 .body(new ApiResponseDto<List<AirportModel>>("Airports retrieved successfully", HttpStatus.OK.value(),
                         airportRepository.findAll()));
@@ -44,5 +48,16 @@ public class AirportService {
         return ResponseEntity.status(HttpStatus.OK)
                 .body(new ApiResponseDto<AirportModel>("Airport retrieved successfully", HttpStatus.OK.value(),
                         airportRepository.findById(id).get()));
+    }
+
+    public ResponseEntity<ApiResponseDto<AirportModel>> deleteById(Integer id) {
+        if (!airportRepository.findById(id).isPresent()) {
+            throw new AirportNotFoundException("Airport not found.");
+        }
+
+        airportRepository.deleteById(id);
+
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(new ApiResponseDto<AirportModel>("Airport deleted successfully", HttpStatus.OK.value(), null));
     }
 }
