@@ -1,5 +1,7 @@
 package br.com.airport.main.modules.Airport.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
@@ -12,16 +14,27 @@ import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/airports")
 public class AirportController {
     @Autowired
     private AirportService airportService;
 
-    @PostMapping("/airports/create")
+    @PostMapping("/create")
     public ResponseEntity<ApiResponseDto<AirportModel>> createAirport(@Valid @RequestBody AirportModel airportModel) {
         return airportService.createAirport(airportModel);
     }
 
+    @GetMapping("/all")
+    public ResponseEntity<ApiResponseDto<List<AirportModel>>> getAllAirports() {
+        return airportService.getAllAirports();
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<ApiResponseDto<AirportModel>> getAirportById(@PathVariable Integer id) {
+        return airportService.getAirportsById(id);
+    }
 }
