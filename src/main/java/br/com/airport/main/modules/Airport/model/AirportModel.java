@@ -2,10 +2,12 @@ package br.com.airport.main.modules.Airport.model;
 
 import org.hibernate.validator.constraints.Length;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import lombok.Data;
 
@@ -17,18 +19,28 @@ public class AirportModel {
     private Integer id;
 
     @Pattern(regexp = "[a-zA-Z ]+", message = "Name must contain only letters and spaces")
+    @Column(nullable = false)
+    @NotBlank(message = "Name cannot be blank")
     private String name;
-
+    
     @Length(min = 3, max = 3)
     @Pattern(regexp = "^[A-Z]{3}$", message = "IATA code must be exactly 3 uppercase letters")
+    @Column(unique = true, nullable = false)
+    @NotBlank(message = "IATA code cannot be blank")
     private String iata;
-
+    
     @Pattern(regexp = "[\\p{L} ]+", message = "City must contain only letters and spaces")
+    @Column(nullable = false)
+    @NotBlank(message = "City cannot be blank")
     private String city;
-
+    
     @Pattern(regexp = "[\\p{L} ]+", message = "State must contain only letters and spaces")
+    @Column(nullable = false)
+    @NotBlank(message = "State cannot be blank")
     private String state;
-
+    
     @Pattern(regexp = "[\\p{L} ]+", message = "Country must contain only letters and spaces")
+    @Column(nullable = false)
+    @NotBlank(message = "Country cannot be blank")
     private String country;
 }
